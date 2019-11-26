@@ -11,7 +11,7 @@ jobs:
   include:
     - stage: build and publish
       language: java
-      jdk: openjdk11
+      jdk: openjdk8
       install: skip
       script: ./gradlew clean build
       before_deploy:
@@ -23,6 +23,7 @@ jobs:
         api_key: $GITHUB_OAUTH_TOKEN
         file: "build/libs/pal-tracker.jar"
         skip_cleanup: true
+        edge: true
     - stage: deploy to cf
       language: bash
       script:
