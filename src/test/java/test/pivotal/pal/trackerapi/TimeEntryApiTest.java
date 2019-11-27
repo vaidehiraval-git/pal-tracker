@@ -73,7 +73,6 @@ public class TimeEntryApiTest {
 
         ResponseEntity<String> readResponse = this.restTemplate.getForEntity("/time-entries/" + id, String.class);
 
-
         assertThat(readResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
         DocumentContext readJson = parse(readResponse.getBody());
         assertThat(readJson.read("$.id", Long.class)).isEqualTo(id);
@@ -107,15 +106,11 @@ public class TimeEntryApiTest {
     @Test
     public void testDelete() throws Exception {
         Long id = createTimeEntry();
-
-
         ResponseEntity<String> deleteResponse = restTemplate.exchange("/time-entries/" + id, HttpMethod.DELETE, null, String.class);
-
-
         assertThat(deleteResponse.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-
         ResponseEntity<String> deletedReadResponse = this.restTemplate.getForEntity("/time-entries/" + id, String.class);
         assertThat(deletedReadResponse.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+
     }
 
     private Long createTimeEntry() {
